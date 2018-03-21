@@ -1,0 +1,16 @@
+{
+  "name": "vue-svgi",
+  "version": "0.1.0",
+  "description": "A simple inline SVG component plugin for Vue.js",
+  "main": "index.js",
+  "devDependencies": {
+    "vue": "2.5.0"
+  },
+  "keywords": ["vue", "vuejs", "icon", "svg", "inline", "js", "javascript"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ch3sh1r3Cat/vue-svgi.git"
+  },
+  "author": "cheshirecat <ca.leduc@me.com>",
+  "license": "MIT"
+}
