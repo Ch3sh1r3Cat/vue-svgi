@@ -18,7 +18,7 @@ import Icon from 'vue-svgi'
 Vue.use(Icon)
 ```
 
-Load a family name with a json file for svg paths
+Load a family name with a JSON file with SVG paths
 
 ```javascript
 Vue.Icon.add('ico', require('./assets/icons/ico.json'))
@@ -42,7 +42,7 @@ You can use the <icon> component in your HTML template
 ```javascript
 ...
 <div>
-  <icon family="ico" name="app"></icon>
+  <icon family="ico" name="arrow-right"></icon>
 </div>
 ...
 ```
