@@ -1,6 +1,6 @@
 # vue-svgi
 
-A simple inline SVG component plugin for Vue.js
+A lightweight inline SVG component plugin for Vue.js
 
 ## Installation
 
