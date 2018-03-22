@@ -37,7 +37,7 @@ The JSON value must be an array of three parameters: width (number), height (num
 }
 ```
 
-You can use the <icon> component in your HTML template
+You can use the 'icon' component in your HTML template
 
 ```javascript
 ...
