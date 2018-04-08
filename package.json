@@ -1,12 +1,26 @@
 {
   "name": "vue-svgi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple inline SVG component plugin for Vue.js",
   "main": "index.js",
+  "scripts": {
+    "babel": "npx babel script.js --out-file index.js"
+  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
     "vue": "2.5.0"
   },
-  "keywords": ["vue", "vuejs", "icon", "svg", "inline", "js", "javascript"],
+  "keywords": [
+    "vue",
+    "vuejs",
+    "icon",
+    "svg",
+    "inline",
+    "js",
+    "javascript"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Ch3sh1r3Cat/vue-svgi.git"
