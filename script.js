@@ -1,9 +1,13 @@
 /**
- * @license
- * Copyright (c) 2018 Charles-André LEDUC. All rights reserved.
+ * A simple inline SVG component plugin for Vue.js
+ *
+ * @version 0.1.2
+ * @author Charlie LEDUC <contact@graphique.io>
+ * @license ISC
+ * @requires 'vue'
  */
 
-const Icon = {
+export default {
   install(Vue, options) {
     var families = {}
 
@@ -19,7 +23,7 @@ const Icon = {
                 paths.push(
                   createElement('path', {
                     attrs: {
-                      class: 'path path-' + index,
+                      class: ['path', 'path-' + index].join(' '),
                       d: path.trim(),
                       fill: 'currentColor'
                     }
@@ -29,14 +33,14 @@ const Icon = {
             }
           }
         }
-        var classes = [this.family, this.family + '-' + this.name]
+        var classes = ['svg-inline', this.family, this.family + '-' + this.name]
         if (this.append != null) {
           classes.push(this.append)
         }
         var data = {
           attrs: {
             'aria-hidden': 'true',
-            class: 'svg-inline ' + classes.join(' '),
+            class: classes.join(' '),
             'data-name': this.name,
             role: 'img',
             xmlns: 'http://www.w3.org/2000/svg',
@@ -89,5 +93,3 @@ const Icon = {
     }
   }
 }
-
-export default Icon

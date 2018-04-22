@@ -59,4 +59,4 @@ The rendered SVG element, created with the class 'svg-inline' can then be easily
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+[ISC](https://opensource.org/licenses/ISC)
