@@ -1,7 +1,7 @@
 /**
  * A simple inline SVG component plugin for Vue.js
  *
- * @version 0.1.2
+ * @version 0.3.0
  * @author Charlie LEDUC <contact@graphique.io>
  * @license ISC
  * @requires 'vue'
@@ -15,25 +15,22 @@ export default {
       render: function render(createElement) {
         var values = this.values();
         var paths = [];
-        if (values.paths != null) {
-          if (values.paths.length > 0) {
-            for (var index in values.paths) {
-              var path = values.paths[index];
-              if (typeof path === 'string') {
-                paths.push(createElement('path', {
-                  attrs: {
-                    class: ['path', 'path-' + index].join(' '),
-                    d: path.trim(),
-                    fill: 'currentColor'
-                  }
-                }));
-              }
+        for (var i = 0; i < values.paths.length; i++) {
+          var path = values.paths[i];
+          paths.push(createElement('path', {
+            attrs: {
+              class: ['path', 'path-' + i].join(' '),
+              d: typeof path === 'string' ? path.trim() : '',
+              fill: 'currentColor'
             }
-          }
+          }));
         }
         var classes = ['svg-inline', this.family, this.family + '-' + this.name];
-        if (this.append != null) {
-          classes.push(this.append);
+        if (this.append && this.append.length) {
+          var classList = this.append.split(/\s/g);
+          classList.forEach(function (cl) {
+            classes.push(cl);
+          });
         }
         var data = {
           attrs: {
