@@ -7,16 +7,58 @@
  * @requires 'vue'
  */
 
+var __families = {}
+
+function __getIcon(family, key) {
+  var family = __families[family]
+  if (family !== null && family !== undefined) {
+    var values = family[key]
+    if (values !== null && values !== undefined && values.length === 3) {
+      var paths = values[2].split('|')
+      return {
+        width: values[0] || 0,
+        height: values[1] || 0,
+        paths: paths || []
+      }
+    }
+  }
+  return {
+    width: 0,
+    height: 0,
+    paths: []
+  }
+}
+
 export default {
   install(Vue, options) {
-    var families = {}
+    Vue.Icon = {
+      load: function(name, json) {
+        __families[name] = json
+      }
+    }
 
     Vue.component('icon', {
+      props: {
+        family: {
+          type: String,
+          required: true
+        },
+        name: {
+          type: String,
+          required: true
+        },
+        classes: {
+          type: Array,
+          default: function() {
+            return []
+          }
+        }
+      },
       render: function(createElement) {
-        var values = this.values()
+        var icon = __getIcon(this.family, this.name)
         var paths = []
-        for (var i = 0; i < values.paths.length; i++) {
-          var path = values.paths[i]
+        for (var i = 0; i < icon.paths.length; i++) {
+          var path = icon.paths[i]
           paths.push(
             createElement('path', {
               attrs: {
@@ -27,66 +69,24 @@ export default {
             })
           )
         }
-        var classes = ['svg-inline', this.family, this.family + '-' + this.name]
-        if (this.append && this.append.length) {
-          var classList = this.append.split(/\s/g)
-          classList.forEach(cl => {
-            classes.push(cl)
+        var classList = ['svg-inline', this.family, this.family + '-' + this.name]
+        if (this.classes && this.classes.length) {
+          this.classes.forEach(c => {
+            classList.push(c)
           })
         }
         var data = {
           attrs: {
             'aria-hidden': 'true',
-            class: classes.join(' '),
+            class: classList.join(' '),
             'data-name': this.name,
             role: 'img',
             xmlns: 'http://www.w3.org/2000/svg',
-            viewBox: '0 0 ' + values.width + ' ' + values.height
+            viewBox: '0 0 ' + icon.width + ' ' + icon.height
           }
         }
         return createElement('svg', data, paths)
-      },
-      props: {
-        family: {
-          type: String,
-          required: true
-        },
-        name: {
-          type: String,
-          required: true
-        },
-        append: {
-          type: String,
-          default: ''
-        }
-      },
-      methods: {
-        values: function() {
-          var family = families[this.family]
-          if (family != null) {
-            var values = family[this.name]
-            if (values != null && values.length === 3) {
-              var paths = values[2].split('|')
-              return {
-                width: values[0],
-                height: values[1],
-                paths: paths
-              }
-            }
-          }
-          return {
-            width: 0,
-            height: 0,
-            paths: []
-          }
-        }
       }
     })
-
-    Vue.Icon = {
-      load: function(name, json) {
-        families[name] = json
-      }
-    }
   }
 }

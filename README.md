@@ -57,6 +57,16 @@ The rendered SVG element, created with the class 'svg-inline' can then be easily
 ...
 ```
 
+You can also pass an optional array of string as props to add to the default generated SVG node classes list.
+
+```javascript
+...
+<div>
+  <icon family="ico" name="arrow-right" :classes="['ico-small', 'icon-error']"></icon>
+</div>
+...
+```
+
 ## License
 
 [ISC](https://opensource.org/licenses/ISC)
