@@ -7,18 +7,20 @@
  * @requires 'vue'
  */
 
-var __families = {}
+import {
+  h
+} from 'vue'
 
-function __getIcon(family, key) {
-  var family = __families[family]
-  if (family !== null && family !== undefined) {
-    var values = family[key]
-    if (values !== null && values !== undefined && values.length === 3) {
+function __getIcon(families, key, icon) {
+  if (families[key]) {
+    var family = families[key]
+    var values = family[icon]
+    if (values != null && values.length === 3) {
       var paths = values[2].split('|')
       return {
-        width: values[0] || 0,
-        height: values[1] || 0,
-        paths: paths || []
+        width: values[0],
+        height: values[1],
+        paths: paths
       }
     }
   }
@@ -30,14 +32,11 @@ function __getIcon(family, key) {
 }
 
 export default {
-  install(Vue, options) {
-    Vue.Icon = {
-      load: function(name, json) {
-        __families[name] = json
-      }
-    }
+  install: (app, options) => {
+    app.provide('icons', options)
 
-    Vue.component('icon', {
+    app.component('icon', {
+      inject: ['icons'],
       props: {
         family: {
           type: String,
@@ -49,23 +48,21 @@ export default {
         },
         classes: {
           type: Array,
-          default: function() {
+          default () {
             return []
           }
         }
       },
-      render: function(createElement) {
-        var icon = __getIcon(this.family, this.name)
+      render() {
+        var icon = __getIcon(this.icons, this.family, this.name)
         var paths = []
         for (var i = 0; i < icon.paths.length; i++) {
           var path = icon.paths[i]
           paths.push(
-            createElement('path', {
-              attrs: {
-                class: ['path', 'path-' + i].join(' '),
-                d: typeof path === 'string' ? path.trim() : '',
-                fill: 'currentColor'
-              }
+            h('path', {
+              class: ['path', 'path-' + i].join(' '),
+              d: typeof path === 'string' ? path.trim() : '',
+              fill: 'currentColor'
             })
           )
         }
@@ -75,17 +72,14 @@ export default {
             classList.push(c)
           })
         }
-        var data = {
-          attrs: {
-            'aria-hidden': 'true',
-            class: classList.join(' '),
-            'data-name': this.name,
-            role: 'img',
-            xmlns: 'http://www.w3.org/2000/svg',
-            viewBox: '0 0 ' + icon.width + ' ' + icon.height
-          }
-        }
-        return createElement('svg', data, paths)
+        return h('svg', {
+          'aria-hidden': 'true',
+          class: classList.join(' '),
+          'data-name': this.name,
+          role: 'img',
+          xmlns: 'http://www.w3.org/2000/svg',
+          viewBox: '0 0 ' + icon.width + ' ' + icon.height
+        }, paths)
       }
     })
   }

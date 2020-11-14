@@ -2,13 +2,39 @@
 
 A lightweight inline SVG component plugin for Vue.js
 
-## Installation
+## Vue 3.x
+
+### Installation
 
 ```javascript
 npm install vue-svgi --save
 ```
 
-## How to use
+### How to use
+
+Default use in your main.js Vue project
+
+```javascript
+import Icon from 'vue-svgi'
+...
+const iconsPack = {
+  ico: require('./assets/icons/ico.json'),
+  logo: require('./assets/icons/logo.json'),
+}
+createApp(App)
+  .use(Icon, iconsPack)
+...
+```
+
+## Vue 2.x
+
+### Installation
+
+```javascript
+npm install vue-svgi@2.0.0 --save
+```
+
+### How to use
 
 Default use in your main.js Vue project
 
@@ -24,6 +50,8 @@ Load a family name with a JSON file with SVG paths
 Vue.Icon.add('ico', require('./assets/icons/ico.json'))
 ```
 
+## JSON files
+
 The JSON value must be an array of three parameters: width (number), height (number), paths (string). You can separate multiple paths with '|'
 
 ```javascript
@@ -36,6 +64,8 @@ The JSON value must be an array of three parameters: width (number), height (num
   ...
 }
 ```
+
+## Custom component
 
 You can use the 'icon' component in your HTML template
 
