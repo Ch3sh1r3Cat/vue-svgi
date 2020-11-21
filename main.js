@@ -1,7 +1,7 @@
 /**
  * A simple inline SVG component plugin for Vue.js
  *
- * @version 0.3.0
+ * @version 3.0.1
  * @author Charlie LEDUC <contact@graphique.io>
  * @license ISC
  * @requires 'vue'
@@ -11,8 +11,8 @@ import {
   h
 } from 'vue'
 
-function __getIcon(families, key, icon) {
-  if (families[key]) {
+function _getIcon(families, key, icon) {
+  if (typeof families === 'object' && families[key]) {
     var family = families[key]
     var values = family[icon]
     if (values != null && values.length === 3) {
@@ -54,7 +54,7 @@ export default {
         }
       },
       render() {
-        var icon = __getIcon(this.icons, this.family, this.name)
+        var icon = _getIcon(this.icons, this.family, this.name)
         var paths = []
         for (var i = 0; i < icon.paths.length; i++) {
           var path = icon.paths[i]
